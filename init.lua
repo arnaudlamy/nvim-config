@@ -32,3 +32,5 @@ vim.cmd("source ".. vim.fs.joinpath(config_dir, "viml_conf/plugins.vim"))
 -- colorscheme settings
 require("colorschemes")
 vim.api.nvim_set_keymap('n', '<C-p>', ':Leaderf file<CR>', { noremap = true, silent = true })
+
+require('arnaud')
