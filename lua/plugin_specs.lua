@@ -70,6 +70,9 @@ local plugin_specs = {
 
   { "machakann/vim-swap", event = "VeryLazy" },
 
+  -- Copilot
+  { "github/copilot.vim"},
+
   -- IDE for Lisp
   -- 'kovisoft/slimv'
   {
