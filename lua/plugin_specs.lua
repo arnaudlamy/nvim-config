@@ -545,7 +545,7 @@ local plugin_specs = {
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
@@ -581,6 +581,11 @@ local plugin_specs = {
       require("nvim-lightbulb").setup { autocmd = { enabled = true } }
     end,
   },
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000, -- Ensure it loads first
+  },
+
 }
 
 require("lazy").setup {

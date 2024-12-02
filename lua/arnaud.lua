@@ -37,9 +37,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 
 -- Remap keys
-vim.api.nvim_set_keymap('n', '<Tab>', ':bn<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<S-Tab>', ':bp<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Tab>', ':bn<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<S-Tab>', ':bp<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'dc', ':bd<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'ma', ':BlackMacchiato<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'zq', ':set foldlevel=0<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'za', ':set foldlevel=10<CR>', { noremap = true, silent = true })
+
+-- vim.g.copilot_no_tab_map = true
+
+vim.api.nvim_set_keymap('i', '<C-M>', 'copilot#Accept("\\<CR>")', { expr=true, noremap = true, silent = true })
