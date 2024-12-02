@@ -34,4 +34,3 @@ require("colorschemes")
 vim.api.nvim_set_keymap('n', '<C-p>', ':Leaderf file<CR>', { noremap = true, silent = true })
 
 require('arnaud')
-vim.cmd("colorscheme onedark")
