@@ -50,3 +50,48 @@ vim.api.nvim_set_keymap('n', '<Leader>c', ':Commentary<CR>', { noremap = true, s
 vim.api.nvim_set_keymap('i', '<C-M>', 'copilot#Accept("\\<CR>")', { expr=true, noremap = true, silent = true })
 
 vim.cmd("colorscheme onedark")
+
+
+-- Go
+local lspconfig = require("lspconfig")
+
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+
+-- Utilisation correcte de vim.api.nvim_create_autocmd
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { "source.organizeImports" } }
+    -- Ajouter un timeout personnalisé si nécessaire
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format({ async = false })
+  end,
+})
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+lspconfig.gopls.setup({
+  on_attach = on_attach
+})

@@ -146,7 +146,7 @@ if utils.executable('pyright') then
   local merged_capability = vim.tbl_deep_extend("force", capabilities, new_capability)
 
   lspconfig.pyright.setup {
-    cmd = { "delance-langserver", "--stdio" },
+    -- cmd = { "delance-langserver", "--stdio" },
     on_attach = custom_attach,
     capabilities = merged_capability,
     settings = {
@@ -156,7 +156,9 @@ if utils.executable('pyright') then
         disableTaggedHints = false,
       },
       python = {
+        pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
         analysis = {
+          extraPaths = { vim.fn.getcwd() .. "/.venv/lib/python3.12/site-packages" },
           autoSearchPaths = true,
           diagnosticMode = "workspace",
           typeCheckingMode = "standard",
